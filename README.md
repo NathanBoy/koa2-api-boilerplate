@@ -43,6 +43,12 @@ kok/
 │   └── post.service.js
 ├── model/                  # Mongoose 数据模型
 │   └── post.model.js
+├── test/                   # jest + supertest 接口测试
+│   ├── app.test.js
+│   └── post.test.js
+├── .github/workflows/ci.yml # GitHub Actions CI
+├── Dockerfile              # 服务镜像（多阶段构建）
+├── docker-compose.yml      # 一键启动 MongoDB + 服务
 ├── .env.example            # 环境变量示例
 └── package.json
 ```
@@ -67,6 +73,20 @@ npm start          # 生产模式
 ```json
 { "code": 0, "message": "ok", "data": { "uptime": 0.1, "timestamp": 1690000000000 } }
 ```
+
+## 🐳 Docker 一键启动
+
+无需本机安装 Node 或 MongoDB，只要装了 [Docker](https://www.docker.com/)：
+
+```bash
+docker compose up -d
+```
+
+- 自动构建服务镜像并拉起 MongoDB（含健康检查，等 Mongo 就绪后再启动服务）
+- 启动后访问 <http://localhost:3000/health> 验证
+- 停止并移除：`docker compose down`（加 `-v` 可一并清除数据卷）
+
+> 若本机 3000 端口已被占用，可修改 `docker-compose.yml` 中 `ports` 的宿主机端口，例如 `"3100:3000"`。
 
 ## 🧪 测试与规范
 
