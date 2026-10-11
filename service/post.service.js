@@ -2,7 +2,7 @@
  * Post service.
  * Business logic and data access for the demo "Post" resource.
  */
-const Post = require('../model/post.model');
+const Post = require("../model/post.model");
 
 exports.list = async ({ page = 1, pageSize = 10 } = {}) => {
   page = Math.max(1, parseInt(page, 10) || 1);
@@ -22,7 +22,7 @@ exports.list = async ({ page = 1, pageSize = 10 } = {}) => {
 exports.detail = async (id) => {
   const doc = await Post.findById(id);
   if (!doc) {
-    const err = new Error('Post not found');
+    const err = new Error("Post not found");
     err.status = 404;
     throw err;
   }
@@ -34,7 +34,7 @@ exports.create = async (data) => Post.create(data);
 exports.update = async (id, data) => {
   const doc = await Post.findByIdAndUpdate(id, data, { new: true, runValidators: true });
   if (!doc) {
-    const err = new Error('Post not found');
+    const err = new Error("Post not found");
     err.status = 404;
     throw err;
   }
@@ -44,7 +44,7 @@ exports.update = async (id, data) => {
 exports.remove = async (id) => {
   const doc = await Post.findByIdAndDelete(id);
   if (!doc) {
-    const err = new Error('Post not found');
+    const err = new Error("Post not found");
     err.status = 404;
     throw err;
   }

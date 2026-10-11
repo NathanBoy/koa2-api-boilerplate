@@ -15,6 +15,7 @@
 - **统一响应格式**：所有接口返回 `{ code, message, data }`，前后端对接约定明确
 - **配置中心**：全部配置通过环境变量注入（支持 `.env`），开发 / 生产环境分离
 - **示例资源**：内置一个完整的 `Post` 增删改查示例，展示分层写法与 Mongoose 用法
+- **测试保障**：jest + supertest 接口测试 + ESLint/Prettier 代码规范，CI 自动校验
 - **零黑盒依赖**：会话为自实现签名 Cookie，中间件逻辑透明、可读，适合学习
 
 ## 🗂 目录结构
@@ -67,17 +68,28 @@ npm start          # 生产模式
 { "code": 0, "message": "ok", "data": { "uptime": 0.1, "timestamp": 1690000000000 } }
 ```
 
+## 🧪 测试与规范
+
+```bash
+npm test           # 运行 jest 接口测试（health / 404 / Post CRUD）
+npm run lint       # ESLint 代码检查
+npm run lint:fix   # 自动修复可修复的 lint 问题
+npm run format     # Prettier 格式化代码
+```
+
+这些步骤已接入 GitHub Actions（CI）：每次 push / PR 到 `main` 会自动执行 **lint + 测试 + 启动冒烟检查**，全部通过才会显示绿色 ✓。
+
 ## 📡 API 示例
 
-| 方法 | 路径             | 说明                 |
-| ---- | ---------------- | -------------------- |
-| GET  | `/`              | API 索引             |
-| GET  | `/health`        | 健康检查             |
-| GET  | `/api/posts`     | 分页获取文章列表     |
-| GET  | `/api/posts/:id` | 获取单篇文章         |
-| POST | `/api/posts`     | 创建文章             |
-| PUT  | `/api/posts/:id` | 更新文章             |
-| DEL  | `/api/posts/:id` | 删除文章             |
+| 方法 | 路径             | 说明             |
+| ---- | ---------------- | ---------------- |
+| GET  | `/`              | API 索引         |
+| GET  | `/health`        | 健康检查         |
+| GET  | `/api/posts`     | 分页获取文章列表 |
+| GET  | `/api/posts/:id` | 获取单篇文章     |
+| POST | `/api/posts`     | 创建文章         |
+| PUT  | `/api/posts/:id` | 更新文章         |
+| DEL  | `/api/posts/:id` | 删除文章         |
 
 **创建一篇文章**
 
@@ -90,20 +102,20 @@ curl -X POST http://localhost:3000/api/posts \
 **统一响应格式**
 
 ```json
-{ "code": 0, "message": "ok", "data": { /* 业务数据 */ } }
+{ "code": 0, "message": "ok", "data": {/* 业务数据 */} }
 ```
 
 ## ⚙️ 配置说明
 
 所有配置均支持通过环境变量覆盖（详见 `.env.example`）：
 
-| 变量           | 默认值                              | 说明                 |
-| -------------- | ----------------------------------- | -------------------- |
-| `NODE_ENV`     | `development`                       | 运行环境             |
-| `PORT`         | `3000`                              | 监听端口             |
-| `APP_NAME`     | `koa2-api-boilerplate`              | 应用名               |
-| `MONGO_URI`    | `mongodb://127.0.0.1:27017/koa2_api`| MongoDB 连接串       |
-| `SESSION_SECRET`| `change-me-in-production`          | 会话签名密钥，**生产环境务必修改** |
+| 变量             | 默认值                               | 说明                               |
+| ---------------- | ------------------------------------ | ---------------------------------- |
+| `NODE_ENV`       | `development`                        | 运行环境                           |
+| `PORT`           | `3000`                               | 监听端口                           |
+| `APP_NAME`       | `koa2-api-boilerplate`               | 应用名                             |
+| `MONGO_URI`      | `mongodb://127.0.0.1:27017/koa2_api` | MongoDB 连接串                     |
+| `SESSION_SECRET` | `change-me-in-production`            | 会话签名密钥，**生产环境务必修改** |
 
 ## 🧱 如何新增一个资源
 

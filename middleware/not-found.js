@@ -7,7 +7,7 @@ module.exports = function notFound() {
     await next();
     if (ctx.status === 404 && ctx.body === undefined) {
       ctx.status = 404;
-      ctx.body = { code: 404, message: 'Not Found', data: null };
+      ctx.body = { code: 404, message: "Not Found", data: null };
     }
   };
 };

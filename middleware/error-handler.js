@@ -13,12 +13,12 @@ module.exports = function errorHandler() {
 
       ctx.body = {
         code: status,
-        message: status >= 500 ? 'Internal Server Error' : err.message || 'Error',
+        message: status >= 500 ? "Internal Server Error" : err.message || "Error",
         data: null,
       };
 
       if (status >= 500) {
-        ctx.app.emit('error', err, ctx);
+        ctx.app.emit("error", err, ctx);
       }
     }
   };

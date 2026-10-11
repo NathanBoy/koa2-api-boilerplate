@@ -2,9 +2,9 @@
  * Server bootstrap.
  * Loads config, connects to MongoDB (best-effort), then starts the Koa app.
  */
-const config = require('./config');
-const app = require('./app');
-const connectDB = require('./service/db');
+const config = require("./config");
+const app = require("./app");
+const connectDB = require("./service/db");
 
 async function bootstrap() {
   // DB connection is best-effort: the server still boots if Mongo is down,

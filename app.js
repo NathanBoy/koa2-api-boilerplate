@@ -2,19 +2,19 @@
  * Koa application entry.
  * Builds the middleware stack (onion model) and mounts the router.
  */
-const Koa = require('koa');
-const bodyParser = require('koa-bodyparser');
-const compress = require('koa-compress');
+const Koa = require("koa");
+const bodyParser = require("koa-bodyparser");
+const compress = require("koa-compress");
 
-const config = require('./config');
-const { rootRouter, apiRouter } = require('./router');
+const config = require("./config");
+const { rootRouter, apiRouter } = require("./router");
 
-const errorHandler = require('./middleware/error-handler');
-const logger = require('./middleware/logger');
-const response = require('./middleware/response');
-const cors = require('./middleware/cors');
-const session = require('./middleware/session');
-const notFound = require('./middleware/not-found');
+const errorHandler = require("./middleware/error-handler");
+const logger = require("./middleware/logger");
+const response = require("./middleware/response");
+const cors = require("./middleware/cors");
+const session = require("./middleware/session");
+const notFound = require("./middleware/not-found");
 
 const app = new Koa();
 app.name = config.name;
@@ -43,7 +43,7 @@ app.use(apiRouter.allowedMethods());
 app.use(notFound()); // JSON 404
 
 // Global error listener (e.g. for external monitoring / alerting).
-app.on('error', (err, ctx) => {
+app.on("error", (err, ctx) => {
   console.error(`[app error] ${err.message}`, {
     path: ctx.path,
     method: ctx.method,

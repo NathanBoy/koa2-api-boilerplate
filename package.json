@@ -5,7 +5,17 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "test": "jest --runInBand",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"**/*.js\" \"**/*.json\" \"**/*.md\""
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/test/**/*.test.js"
+    ]
   },
   "keywords": [
     "koa",
@@ -18,17 +28,24 @@
     "starter",
     "backend"
   ],
-  "author": "NathonBoy",
+  "author": "NathanBoy",
   "license": "MIT",
   "engines": {
     "node": ">=18"
   },
   "dependencies": {
+    "@koa/router": "^13.1.0",
     "dotenv": "^16.4.5",
     "koa": "^2.15.3",
-    "@koa/router": "^13.1.0",
     "koa-bodyparser": "^4.4.1",
     "koa-compress": "^5.1.1",
     "mongoose": "^8.7.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.8",
+    "jest": "^30.5.2",
+    "prettier": "^3.9.10",
+    "supertest": "^7.3.1"
   }
 }

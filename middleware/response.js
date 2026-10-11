@@ -6,11 +6,11 @@
  */
 module.exports = function response() {
   return async (ctx, next) => {
-    ctx.success = (data = null, message = 'ok') => {
+    ctx.success = (data = null, message = "ok") => {
       ctx.body = { code: 0, message, data };
     };
 
-    ctx.fail = (message = 'error', code = 1, status = 200) => {
+    ctx.fail = (message = "error", code = 1, status = 200) => {
       ctx.status = status;
       ctx.body = { code, message, data: null };
     };
