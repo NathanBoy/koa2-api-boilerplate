@@ -144,6 +144,10 @@ curl -X POST http://localhost:3000/api/posts \
 3. 在 `controller/` 下新建控制器，使用 `ctx.success` / `ctx.fail` 返回
 4. 在 `router/index.js` 中注册路由
 
+## 🤝 参与贡献
+
+欢迎提交 Issue 和 Pull Request！请先阅读 [CONTRIBUTING.md](CONTRIBUTING.md)，并遵循 [贡献者公约](CODE_OF_CONDUCT.md)。
+
 ## 📄 License
 
 [MIT](LICENSE)
