@@ -35,6 +35,16 @@ jobs:
           set -e
           PORT=3100 node server.js &
           SERVER_PID=$!
-          sleep 3
-          curl -fsS http://localhost:3100/health
-          kill $SERVER_PID
+          # Poll until the server becomes healthy (booting can take a few
+          # seconds while it attempts a MongoDB connection), up to 20s.
+          for i in $(seq 1 20); do
+            if curl -fsS http://localhost:3100/health >/dev/null 2>&1; then
+              echo "server healthy after ${i}s"
+              kill $SERVER_PID
+              exit 0
+            fi
+            sleep 1
+          done
+          kill $SERVER_PID 2>/dev/null || true
+          echo "server failed to become healthy within 20s"
+          exit 1
