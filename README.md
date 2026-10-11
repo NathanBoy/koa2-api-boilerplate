@@ -1,5 +1,9 @@
 # koa2-api-boilerplate
 
+[![License: MIT](https://img.shields.io/github/license/NathanBoy/koa2-api-boilerplate)](LICENSE)
+[![Node](https://img.shields.io/badge/node-%3E%3D18-339933?logo=node.js&logoColor=white)](https://nodejs.org)
+[![CI](https://img.shields.io/github/actions/workflow/status/NathanBoy/koa2-api-boilerplate/ci.yml)](.github/workflows/ci.yml)
+
 一个轻量、干净、开箱即用的 **Koa2 + Mongoose** RESTful API 脚手架。采用经典的分层架构（router → controller → service → model）和洋葱模型中间件，内置统一的响应格式、错误处理、请求日志、CORS、压缩与会话等常见能力，适合作为个人后端项目或新服务的基础骨架。
 
 > 语言：Node.js ≥ 18 · 框架：Koa 2 · 数据库：MongoDB (Mongoose)

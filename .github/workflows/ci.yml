@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Syntax check
+        run: |
+          set -e
+          for f in $(find . -name '*.js' -not -path './node_modules/*'); do
+            node --check "$f"
+          done
+
+      - name: Smoke test (boot + health check)
+        run: |
+          set -e
+          PORT=3100 node server.js &
+          SERVER_PID=$!
+          sleep 3
+          curl -fsS http://localhost:3100/health
+          kill $SERVER_PID
